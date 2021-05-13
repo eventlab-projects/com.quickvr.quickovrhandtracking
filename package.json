@@ -1,0 +1,12 @@
+{
+  "name": "com.quickvr.quickovrhandtracking",
+  "version": "1.0.0",
+  "displayName": "QuickVR.QuickOVRHandTracking",
+  "description": "Hand Tracking support for QuickVR",
+  "unity": "2019.1",
+  "author": {
+    "name": "EventLab",
+    "email": "eventlab.projects@gmail.com",
+    "url": "http://www.event-lab.org/"
+  }
+}
