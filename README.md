@@ -1,1 +1,1 @@
-# com.quickvr.quickovrhandtracking
+# QuickOVRHandTracking
