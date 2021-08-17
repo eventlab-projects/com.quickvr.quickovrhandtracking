@@ -25,7 +25,7 @@ namespace QuickVR
 
         protected bool _physicsInitialized = false;
 
-        protected Dictionary<OVRSkeleton.BoneId, QuickOVRHandBonePhysics> _handBonePhysics = new Dictionary<OVRSkeleton.BoneId, QuickOVRHandBonePhysics>();
+        protected Dictionary<int, QuickOVRHandBonePhysics> _handBonePhysics = new Dictionary<int, QuickOVRHandBonePhysics>();
         protected BoxCollider _handCollider = null;
 
         protected QuickUnityVR _headTracking = null;
@@ -127,10 +127,9 @@ namespace QuickVR
 
         protected virtual void CreatePhysics()
         {
-            foreach (OVRSkeleton.BoneId f in QuickUtils.GetEnumValues<OVRSkeleton.BoneId>())
+            //foreach (OVRSkeleton.BoneId f in QuickUtils.GetEnumValues<OVRSkeleton.BoneId>())
+            for (int f = 0; f < (int)OVRSkeleton.BoneId.Hand_End; f++)
             {
-                if (f == OVRSkeleton.BoneId.Invalid || f == OVRSkeleton.BoneId.Max) continue;
-
                 //float r = f == HandBone.HandCenter ? 0.025f : BONE_RADIUS;
                 QuickOVRHandBonePhysics result = CreatePhysicsBone(f, BONE_RADIUS);
                 _handBonePhysics[f] = result;
@@ -157,7 +156,7 @@ namespace QuickVR
             _handCollider.transform.localScale = Vector3.Scale(new Vector3(sx, sy, sz), new Vector3(1.75f, 1.75f, 1.2f));
         }
 
-        protected virtual QuickOVRHandBonePhysics CreatePhysicsBone(OVRSkeleton.BoneId boneID, float boneRadius)
+        protected virtual QuickOVRHandBonePhysics CreatePhysicsBone(int boneID, float boneRadius)
         {
             Transform tBone = GetOVRBoneTransform(boneID);
             QuickOVRHandBonePhysics result = tBone.CreateChild("__Physics__").GetOrCreateComponent<QuickOVRHandBonePhysics>();
@@ -176,6 +175,11 @@ namespace QuickVR
         }
 
         public virtual Transform GetOVRBoneTransform(OVRSkeleton.BoneId boneID)
+        {
+            return GetOVRBoneTransform((int)boneID);
+        }
+
+        public virtual Transform GetOVRBoneTransform(int boneID)
         {
             return IsInitialized()? _skeleton.Bones[(int)boneID].Transform : null;
         }
@@ -221,11 +225,6 @@ namespace QuickVR
             if (finger == HandFinger.Middle) return OVRSkeleton.BoneId.Hand_Middle3;
             if (finger == HandFinger.Ring) return OVRSkeleton.BoneId.Hand_Ring3;
             return OVRSkeleton.BoneId.Hand_Pinky3;
-        }
-
-        public virtual QuickOVRHandBonePhysics GetHandBonePhysics(OVRSkeleton.BoneId boneID)
-        {
-            return _handBonePhysics.ContainsKey(boneID)? _handBonePhysics[boneID] : null;
         }
 
         public virtual BoxCollider GetHandCollider()
