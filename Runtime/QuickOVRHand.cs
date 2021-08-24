@@ -117,12 +117,12 @@ namespace QuickVR
 
         protected virtual void OnEnable()
         {
-            QuickVRManager.OnPreUpdateTracking += UpdateVRNodeTracked;
+            QuickVRManager.OnPostUpdateVRNodes += UpdateVRNodeTracked;
         }
 
         protected virtual void OnDisable()
         {
-            QuickVRManager.OnPreUpdateTracking -= UpdateVRNodeTracked;
+            QuickVRManager.OnPostUpdateVRNodes -= UpdateVRNodeTracked;
         }
 
         protected virtual void CreatePhysics()
@@ -181,7 +181,7 @@ namespace QuickVR
 
         public virtual Transform GetOVRBoneTransform(int boneID)
         {
-            return IsInitialized()? _skeleton.Bones[(int)boneID].Transform : null;
+            return IsInitialized()? _skeleton.Bones[boneID].Transform : null;
         }
 
         public virtual Transform GetOVRBoneTransform(HandFinger fingerID, FingerPhalange phalangeID)
