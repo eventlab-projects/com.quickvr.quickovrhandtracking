@@ -395,13 +395,15 @@ namespace QuickVR
                             }
                             
 
-                            nFinger.SetTracked(true);
+                            //nFinger.SetTracked(true);
                         }
                         else
                         {
                             //The finger is not tracked. Restore the last valid local rotation. 
-                            nFinger.SetTracked(false);
+                            //nFinger.SetTracked(false);
                         }
+
+                        nFinger.SetTracked(true);
                     }
                 }
             }
