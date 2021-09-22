@@ -86,9 +86,14 @@ namespace QuickVR
 
         public virtual void UpdateOVR()
         {
-            if (_hTracking && _hTracking._handTrackingMode == QuickUnityVR.HandTrackingMode.Hands)
+            if (OVRPlugin.GetHandTrackingEnabled())
             {
+                QuickVRManager._handTrackingMode = QuickVRManager.HandTrackingMode.Hands;
                 OVRInput.Update();
+            }
+            else
+            {
+                QuickVRManager._handTrackingMode = QuickVRManager.HandTrackingMode.Controllers;
             }
         }
 

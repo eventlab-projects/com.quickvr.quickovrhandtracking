@@ -15,6 +15,7 @@ namespace QuickVR
             if (ovrConfig.handTrackingSupport != OVRProjectConfig.HandTrackingSupport.ControllersAndHands)
             {
                 ovrConfig.handTrackingSupport = OVRProjectConfig.HandTrackingSupport.ControllersAndHands;
+                ovrConfig.handTrackingFrequency = OVRProjectConfig.HandTrackingFrequency.MAX;
                 OVRProjectConfig.CommitProjectConfig(ovrConfig);
             }
         }

@@ -95,7 +95,7 @@ namespace QuickVR
 
         protected override bool ImpGetButton(string button)
         {
-            if (QuickVRManager.IsHandTrackingSupported() && _ovrHands)
+            if (QuickVRManager._handTrackingMode == QuickVRManager.HandTrackingMode.Hands && _ovrHands)
             {
                 QuickOVRHand h = GetOVRhand(button);
                 if (h.IsInitialized())

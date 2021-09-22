@@ -333,8 +333,13 @@ namespace QuickVR
 
         protected virtual void UpdateVRNodeTracked()
         {
-            if (_headTracking._handTrackingMode == QuickUnityVR.HandTrackingMode.Hands)
+            //if (_headTracking._handTrackingMode == QuickUnityVR.HandTrackingMode.Hands)
+            if (OVRPlugin.GetHandTrackingEnabled())
             {
+                Transform tObject = _vrNodeHand.GetTrackedObject().transform;
+                tObject.localPosition = Vector3.zero;
+                tObject.localRotation = Quaternion.identity;
+
                 bool isTrackedPos = OVRPlugin.GetNodePositionTracked(_ovrNodeHand);
                 if (isTrackedPos)
                 {
@@ -345,6 +350,15 @@ namespace QuickVR
                 if (isTrackedRot)
                 {
                     _vrNodeHand.transform.localRotation = OVRPlugin.GetNodePose(_ovrNodeHand, OVRPlugin.Step.Render).ToOVRPose().orientation;
+
+                    if (IsLeft())
+                    {
+                        tObject.LookAt(tObject.transform.position + _vrNodeHand.transform.right, -_vrNodeHand.transform.up);
+                    }
+                    else
+                    {
+                        tObject.LookAt(tObject.transform.position - _vrNodeHand.transform.right, _vrNodeHand.transform.up);
+                    }
                 }
 
                 //vrNode.SetTracked(isTrackedPos || isTrackedRot);
