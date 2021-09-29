@@ -333,8 +333,7 @@ namespace QuickVR
 
         protected virtual void UpdateVRNodeTracked()
         {
-            //if (_headTracking._handTrackingMode == QuickUnityVR.HandTrackingMode.Hands)
-            if (OVRPlugin.GetHandTrackingEnabled())
+            if (QuickVRManager._handTrackingMode == QuickVRManager.HandTrackingMode.Hands)
             {
                 Transform tObject = _vrNodeHand.GetTrackedObject().transform;
                 tObject.localPosition = Vector3.zero;
